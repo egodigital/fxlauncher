@@ -245,7 +245,7 @@ public class Launcher extends Application {
             String firstFile = superLauncher.getManifest().files.get(0).file;
             log.info(String.format("No app class defined, starting first file (%s)", firstFile));
             Path cacheDir = superLauncher.getManifest().resolveCacheDir(getParameters().getNamed());
-            String command = String.format("java -jar %s/%s", cacheDir.toAbsolutePath(), firstFile);
+            String command = String.format("%s -jar %s/%s", superLauncher.getManifest().jrePath, cacheDir.toAbsolutePath(), firstFile);
             log.info(String.format("Execute command '%s'", command));
             Runtime.getRuntime().exec(command);
         }
