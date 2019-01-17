@@ -1,7 +1,11 @@
 # FXLauncher
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/no.tornado/fxlauncher/badge.svg)](https://search.maven.org/#search|ga|1|no.tornado.fxlauncher)
-[![Apache License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+## Fork!
+I forked the [FXLauncher](https://github.com/edvin/fxldemo) to simplify the launch of my Spring Boot application.  
+I disabled the hole dynamic class path stuff after the update phase and execute a command from the app.xml.  
+This solution is very **project specific** and **brake awesome features** from the FXLauncher!   
+
+## Original Readme
 
 Auto updating launcher for JavaFX Applications. Combined with JavaFX native packaging, you get
 a native installer with automatic app updates.

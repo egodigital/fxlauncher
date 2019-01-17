@@ -43,9 +43,14 @@ public class FXManifest {
 	@XmlElement
 	public String jrePath;
 	@XmlElement
+	public String execCommand;
+	@XmlElement
+	public String workingDir;
+	@XmlElement
 	public Boolean acceptDowngrade = false;
 	@XmlElement
 	public Boolean stopOnUpdateErrors = false;
+
 	@XmlElement
 	public String preloadNativeLibraries;
 	@XmlElement
@@ -155,6 +160,9 @@ public class FXManifest {
 		if (wrapperStyle != null ? !wrapperStyle.equals(that.wrapperStyle) : that.wrapperStyle != null) return false;
 		if (parameters != null ? !parameters.equals(that.parameters) : that.parameters != null) return false;
 		if (cacheDir != null ? !cacheDir.equals(that.cacheDir) : that.cacheDir != null) return false;
+		if (execCommand != null ? !execCommand.equals(that.execCommand) : that.execCommand != null) return false;
+		if (jrePath != null ? !jrePath.equals(that.jrePath) : that.jrePath != null) return false;
+		if (workingDir != null ? !workingDir.equals(that.workingDir) : that.workingDir != null) return false;
 		if (lingeringUpdateScreen != null ? !lingeringUpdateScreen.equals(that.lingeringUpdateScreen) : that.lingeringUpdateScreen != null) return false;
 		if (stopOnUpdateErrors != null ? !stopOnUpdateErrors.equals(that.stopOnUpdateErrors) : that.stopOnUpdateErrors != null) return false;
 		return acceptDowngrade != null ? acceptDowngrade.equals(that.acceptDowngrade) : that.acceptDowngrade == null;
@@ -173,6 +181,9 @@ public class FXManifest {
 		result = 31 * result + (wrapperStyle != null ? wrapperStyle.hashCode() : 0);
 		result = 31 * result + (parameters != null ? parameters.hashCode() : 0);
 		result = 31 * result + (cacheDir != null ? cacheDir.hashCode() : 0);
+		result = 31 * result + (jrePath != null ? jrePath.hashCode() : 0);
+		result = 31 * result + (workingDir != null ? workingDir.hashCode() : 0);
+		result = 31 * result + (execCommand != null ? execCommand.hashCode() : 0);
 		result = 31 * result + (acceptDowngrade != null ? acceptDowngrade.hashCode() : 0);
 		result = 31 * result + (stopOnUpdateErrors != null ? stopOnUpdateErrors.hashCode() : 0);
 		return result;

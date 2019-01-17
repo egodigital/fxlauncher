@@ -36,6 +36,8 @@ public class CreateManifest {
         Boolean lingeringUpdateScreen = false;
         Boolean stopOnUpdateErrorsDeprecated = null;
         String jrePath = null;
+        String execCommand = null;
+        String workingDir = null;
 
         if (args.length > 3) {
             // Parse named parameters
@@ -51,6 +53,12 @@ public class CreateManifest {
 
                 if(named.containsKey("jrePath"))
                     jrePath = named.get("jrePath");
+
+                if(named.containsKey("execCommand"))
+                    execCommand = named.get("execCommand");
+
+                if(named.containsKey("workingDir"))
+                    workingDir = named.get("workingDir");
 
                 // Configure acceptDowngrade
                 if (named.containsKey("accept-downgrade"))
@@ -99,9 +107,11 @@ public class CreateManifest {
                 if (raw.startsWith("--include-extensions=")) continue;
                 if (raw.startsWith("--jrePath=")) continue;
                 if (raw.startsWith("--preload-native-libraries=")) continue;
-                if (raw.startsWith("--whats-new")) continue;
-                if (raw.startsWith("--update-text")) continue;
-                if (raw.startsWith("--lingering-update-screen")) continue;
+                if (raw.startsWith("--whats-new=")) continue;
+                if (raw.startsWith("--workingDir=")) continue;
+                if (raw.startsWith("--update-text=")) continue;
+                if (raw.startsWith("--lingering-update-screen=")) continue;
+                if (raw.startsWith("--execCommand=")) continue;
                 if (rest.length() > 0) rest.append(" ");
                 rest.append(raw);
             }
@@ -119,6 +129,8 @@ public class CreateManifest {
         if (whatsNew != null) manifest.whatsNewPage = whatsNew;
         if (updateText != null) manifest.updateText = updateText;
         if (jrePath != null) manifest.jrePath = jrePath;
+        if (workingDir != null) manifest.workingDir = workingDir;
+        if (execCommand != null) manifest.execCommand = execCommand;
         manifest.lingeringUpdateScreen = lingeringUpdateScreen;
 
         // Use --stop-on-update-errors if it was specified.

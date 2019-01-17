@@ -15,6 +15,7 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -161,19 +162,19 @@ public abstract class AbstractLauncher<APP>  {
     protected void createApplicationEnvironment() throws Exception {
         phase = "Create Application";
 
-        if (manifest == null)
-            throw new IllegalArgumentException("Unable to retrieve embedded or remote manifest.");
-        List<String> preloadLibs = manifest.getPreloadNativeLibraryList();
-        for (String preloadLib : preloadLibs)
-            System.loadLibrary(preloadLib);
+//        if (manifest == null)
+//            throw new IllegalArgumentException("Unable to retrieve embedded or remote manifest.");
+//        List<String> preloadLibs = manifest.getPreloadNativeLibraryList();
+//        for (String preloadLib : preloadLibs)
+//            System.loadLibrary(preloadLib);
+//
+//        Path cacheDir = manifest.resolveCacheDir(getParameters() != null ? getParameters().getNamed() : null);
+//
+//        ClassLoader classLoader = createClassLoader(cacheDir);
+//        log.info(String.format("Loading appClass %s", manifest.launchClass));
+//        Class<APP> appclass = (Class<APP>) classLoader.loadClass(manifest.launchClass);
 
-        Path cacheDir = manifest.resolveCacheDir(getParameters() != null ? getParameters().getNamed() : null);
-
-        ClassLoader classLoader = createClassLoader(cacheDir);
-        log.info(String.format("Loading appClass %s", manifest.launchClass));
-        Class<APP> appclass = (Class<APP>) classLoader.loadClass(manifest.launchClass);
-
-        createApplication(appclass);
+        createApplication(null);
     }
 
     protected void syncManifest() throws Exception {

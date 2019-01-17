@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
@@ -48,18 +49,7 @@ public class Launcher extends Application {
 
         @Override
         protected void createApplication(Class<Application> appClass) {
-            PlatformImpl.runAndWait(() ->
-            {
-                try {
-                    if (Application.class.isAssignableFrom(appClass)) {
-                        app = appClass.newInstance();
-                    } else {
-                        throw new IllegalArgumentException(String.format("Supplied appClass %s was not a subclass of javafx.application.Application!", appClass));
-                    }
-                } catch (Throwable t) {
-                    reportError("Error creating app class", t);
-                }
-            });
+            app = null;
         }
 
         @Override
@@ -178,18 +168,11 @@ public class Launcher extends Application {
         PlatformImpl.runAndWait(() ->
         {
             try {
-                if (showWhatsnew && superLauncher.getManifest().whatsNewPage != null)
+                if (showWhatsnew && superLauncher.getManifest().whatsNewPage != null) {
                     showWhatsNewDialog(superLauncher.getManifest().whatsNewPage);
-
-                // Lingering update screen will close when primary stage is shown
-                if (superLauncher.getManifest().lingeringUpdateScreen) {
-                    primaryStage.showingProperty().addListener(observable -> {
-                        if (stage.isShowing())
-                            stage.close();
-                    });
-                } else {
-                    stage.close();
                 }
+
+                stage.close();
 
                 startApplication();
             } catch (Throwable ex) {
@@ -235,20 +218,9 @@ public class Launcher extends Application {
     }
 
     private void startApplication() throws Exception {
-        if (app != null) {
-            ParametersImpl.registerParameters(app, new LauncherParams(getParameters(), superLauncher.getManifest()));
-            PlatformImpl.setApplicationName(app.getClass());
-            superLauncher.setPhase("Application Init");
-            app.start(primaryStage);
-        } else {
-            // Start any executable jar (i.E. Spring Boot);
-            String firstFile = superLauncher.getManifest().files.get(0).file;
-            log.info(String.format("No app class defined, starting first file (%s)", firstFile));
-            Path cacheDir = superLauncher.getManifest().resolveCacheDir(getParameters().getNamed());
-            String command = String.format("%s -jar %s", superLauncher.getManifest().jrePath, firstFile);
-            log.info("jrePath: "+superLauncher.getManifest().jrePath);
-            log.info(String.format("Execute command '%s'", command));
-            Runtime.getRuntime().exec(command);
-        }
+        // perform execCommand
+        String command = String.format("%s %s", superLauncher.getManifest().jrePath, superLauncher.getManifest().execCommand);
+        log.info(String.format("Execute command '%s' on dir '%s'", command, superLauncher.getManifest().workingDir));
+        Runtime.getRuntime().exec(command, null, new File(superLauncher.getManifest().workingDir));
     }
 }
