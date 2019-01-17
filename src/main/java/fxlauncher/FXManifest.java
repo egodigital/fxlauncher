@@ -41,7 +41,7 @@ public class FXManifest {
 	@XmlElement
 	public String cacheDir;
 	@XmlElement
-	public String jrePath = "java";
+	public String jrePath;
 	@XmlElement
 	public Boolean acceptDowngrade = false;
 	@XmlElement
