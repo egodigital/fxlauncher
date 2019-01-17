@@ -35,6 +35,7 @@ public class CreateManifest {
         String preloadNativeLibraries = null;
         Boolean lingeringUpdateScreen = false;
         Boolean stopOnUpdateErrorsDeprecated = null;
+        String jrePath = null;
 
         if (args.length > 3) {
             // Parse named parameters
@@ -47,6 +48,9 @@ public class CreateManifest {
                 // Configure cacheDir
                 if (named.containsKey("cache-dir"))
                     cacheDir = named.get("cache-dir");
+
+                if(named.containsKey("jrePath"))
+                    jrePath = named.get("jrePath");
 
                 // Configure acceptDowngrade
                 if (named.containsKey("accept-downgrade"))
@@ -93,6 +97,7 @@ public class CreateManifest {
                 if (raw.startsWith("--accept-downgrade=")) continue;
                 if (raw.startsWith("--stop-on-update-errors=")) continue;
                 if (raw.startsWith("--include-extensions=")) continue;
+                if (raw.startsWith("--jrePath=")) continue;
                 if (raw.startsWith("--preload-native-libraries=")) continue;
                 if (raw.startsWith("--whats-new")) continue;
                 if (raw.startsWith("--update-text")) continue;
@@ -113,6 +118,7 @@ public class CreateManifest {
         if (preloadNativeLibraries != null) manifest.preloadNativeLibraries = preloadNativeLibraries;
         if (whatsNew != null) manifest.whatsNewPage = whatsNew;
         if (updateText != null) manifest.updateText = updateText;
+        if (jrePath != null) manifest.jrePath = jrePath;
         manifest.lingeringUpdateScreen = lingeringUpdateScreen;
 
         // Use --stop-on-update-errors if it was specified.
