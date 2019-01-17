@@ -247,6 +247,7 @@ public class Launcher extends Application {
             Path cacheDir = superLauncher.getManifest().resolveCacheDir(getParameters().getNamed());
             String command = String.format("%s -jar %s", superLauncher.getManifest().jrePath, firstFile);
             log.info("jrePath: "+superLauncher.getManifest().jrePath);
+            log.info(String.format("Execute command '%s'", command));
             Runtime.getRuntime().exec(command);
         }
     }
