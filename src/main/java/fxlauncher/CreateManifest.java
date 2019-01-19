@@ -105,13 +105,13 @@ public class CreateManifest {
                 if (raw.startsWith("--accept-downgrade=")) continue;
                 if (raw.startsWith("--stop-on-update-errors=")) continue;
                 if (raw.startsWith("--include-extensions=")) continue;
-                if (raw.startsWith("--jrePath=")) continue;
+                if (raw.startsWith("--jrePath")) continue;
                 if (raw.startsWith("--preload-native-libraries=")) continue;
                 if (raw.startsWith("--whats-new=")) continue;
-                if (raw.startsWith("--workingDir=")) continue;
+                if (raw.startsWith("--workingDir")) continue;
                 if (raw.startsWith("--update-text=")) continue;
                 if (raw.startsWith("--lingering-update-screen=")) continue;
-                if (raw.startsWith("--execCommand=")) continue;
+                if (raw.startsWith("--execCommand")) continue;
                 if (rest.length() > 0) rest.append(" ");
                 rest.append(raw);
             }

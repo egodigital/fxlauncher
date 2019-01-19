@@ -215,10 +215,13 @@ public abstract class AbstractLauncher<APP>  {
         manifest = JAXB.unmarshal(embeddedManifest, FXManifest.class);
 
         Path cacheDir = manifest.resolveCacheDir(namedParams);
-        Path manifestPath = manifest.getPath(cacheDir);
+        Path temp = manifest.getPath(cacheDir);
+        temp.getFileName();
+        File file = temp.toFile();
+        File manifestPath = new File(file.getAbsoluteFile().getParentFile().getParentFile().toString()+File.pathSeparator+temp.getFileName());
 
-        if (Files.exists(manifestPath))
-            manifest = JAXB.unmarshal(manifestPath.toFile(), FXManifest.class);
+        if (Files.exists(manifestPath.toPath()))
+            manifest = JAXB.unmarshal(manifestPath, FXManifest.class);
 
         if (getParameters().getUnnamed().contains("--offline")) {
             log.info("offline selected");
@@ -233,7 +236,7 @@ public abstract class AbstractLauncher<APP>  {
                 // Update to remote manifest if newer or we specifically accept downgrades
                 if (remoteManifest.isNewerThan(manifest) || manifest.acceptDowngrade) {
                     manifest = remoteManifest;
-                    JAXB.marshal(manifest, manifestPath.toFile());
+                    JAXB.marshal(manifest, manifestPath);
                 }
             }
         } catch (Exception ex) {
